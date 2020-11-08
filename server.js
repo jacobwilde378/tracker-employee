@@ -3,22 +3,23 @@ let inqData = require('./utils/inq/inq');
 
 sub_employee = function () {
     return inquirer.prompt(inqData.empMenuQuestions())
-    .then(empMenuData => {
-        switch (empMenuData.empMenuSelection) {
-            case 'Add a New Employee':
-                return inqData.empAdd()
-            break
-            case 'Update an Existing Employee':
+        .then(empMenuData => {
+            switch (empMenuData.empMenuSelection) {
+                case 'Add a New Employee':
+                    return inqData.empAdd()
+                        .then(() => {
+                            init();
+                        })
+                        
+                case 'Update an Existing Employee':
 
-            case 'Remove an Employee':
+                case 'Remove an Employee':
 
-            case 'Return to Main Menu':
-                init();
-        }
-    })
-    .then(() => {
-        init()
-    })
+                case 'Return to Main Menu':
+                    init();
+            }
+            return "yay"
+        })
 }
 
 let init = function () {

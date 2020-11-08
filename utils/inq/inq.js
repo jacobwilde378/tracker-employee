@@ -91,7 +91,7 @@ const inqData = {
                     .then(emp => {
                         db.addEmployee(emp.empAddFirstName,emp.empAddLastName, emp.empAddRole, emp.empAddManager)
                         .then(results => {
-                            return
+                            return results
                         })
                     })
             })
