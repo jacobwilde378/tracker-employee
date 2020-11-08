@@ -97,7 +97,7 @@ const inqData = {
                         db.addEmployee(emp.empAddFirstName,emp.empAddLastName, emp.empAddRole, emp.empAddManager)
                         .then(results => {
                             console.log("help")
-                            // subEmployee();
+                            alps.subEmployee()
                             console.log("halp2")
                         })
                     })
