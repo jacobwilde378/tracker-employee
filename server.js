@@ -7,10 +7,6 @@ sub_employee = function () {
             switch (empMenuData.empMenuSelection) {
                 case 'Add a New Employee':
                     return inqData.empAdd()
-                        .then(() => {
-                            init();
-                        })
-                        
                 case 'Update an Existing Employee':
 
                 case 'Remove an Employee':
@@ -19,6 +15,9 @@ sub_employee = function () {
                     init();
             }
             return "yay"
+        })
+        .then(() => {
+            init();
         })
 }
 
