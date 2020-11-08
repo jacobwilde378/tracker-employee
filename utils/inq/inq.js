@@ -1,6 +1,11 @@
 const db = require("../../db/arrayQueries");
-let inquirer = require('inquirer')
-let Employee = require('../employee')
+const inquirer = require('inquirer')
+const Employee = require('../employee')
+const alps = require('../../server.js')
+
+console.log("this",alps)
+console.log('Nope', Employee)
+
 
 let empArray = []
 let roleArray = []
@@ -91,7 +96,9 @@ const inqData = {
                     .then(emp => {
                         db.addEmployee(emp.empAddFirstName,emp.empAddLastName, emp.empAddRole, emp.empAddManager)
                         .then(results => {
-                            return results
+                            console.log("help")
+                            // subEmployee();
+                            console.log("halp2")
                         })
                     })
             })

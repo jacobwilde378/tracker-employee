@@ -1,32 +1,33 @@
 let inquirer = require('inquirer');
 let inqData = require('./utils/inq/inq');
 
-sub_employee = function () {
-    return inquirer.prompt(inqData.empMenuQuestions())
-        .then(empMenuData => {
-            switch (empMenuData.empMenuSelection) {
-                case 'Add a New Employee':
-                    return inqData.empAdd()
-                case 'Update an Existing Employee':
+const alps = {
+    subEmployee: function () {
+        return inquirer.prompt(inqData.empMenuQuestions())
+            .then(empMenuData => {
+                switch (empMenuData.empMenuSelection) {
+                    case 'Add a New Employee':
+                        return inqData.empAdd()
+                    case 'Update an Existing Employee':
 
-                case 'Remove an Employee':
+                    case 'Remove an Employee':
 
-                case 'Return to Main Menu':
-                    init();
-            }
-            return "yay"
-        })
-        .then(() => {
-            init();
-        })
+                    case 'Return to Main Menu':
+                }
+                return "yay"
+            })
+    }
+
 }
+
+
 
 let init = function () {
     return inquirer.prompt(inqData.mainMenuQuestions())
         .then(data => {
             switch (data.mainMenuSelection) {
                 case 'Maintain Employees':
-                    sub_employee();
+                    alps.subEmployee()
                     break
                 case 'Maintain Roles':
                     return inquirer.prompt(inqData.roleMenuQuestions())
@@ -54,4 +55,8 @@ let init = function () {
 
 }
 
+
+module.exports = alps
+
+console.log("my alps", alps)
 init();
