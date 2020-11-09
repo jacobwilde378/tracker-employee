@@ -23,6 +23,6 @@ CREATE TABLE employee (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     role_id INTEGER(12) NOT NULL,
-    manager_id INTEGER(12),
+    manager_id INTEGER(12) NULL,
     PRIMARY KEY(id)
 );
