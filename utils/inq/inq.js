@@ -1,6 +1,6 @@
 const db = require("../../db/arrayQueries");
 const inquirer = require('inquirer')
-const cTable = require('console.table')
+// const cTable = require('console.table')
 
 let empArray = []
 let roleArray = []
@@ -76,8 +76,6 @@ const inqData = {
                     ]
                 }
             ]
-            console.log("maybe",questionArray)
-            console.log(typeof questionArray);
             return questionArray
         },
         report_menu: function () {
@@ -95,8 +93,6 @@ const inqData = {
                     ]
                 }
             ]
-            console.log("maybe",questionArray)
-            console.log(typeof questionArray);
             return questionArray
         },
 
@@ -117,7 +113,8 @@ const inqData = {
                             inqData.menus.deptMenu()
                             break
                         case 'View Reports':
-                            inqData.menus.umActually()
+                            inqData.menus.reportMenu()
+                            break
                         case 'Exit Program':
                             process.exit()
                     }
@@ -174,7 +171,7 @@ const inqData = {
                 })
         },
 
-        umActually: function() {
+        umActually: function () {
             console.clear()
             return inquirer.prompt(inqData.questions.dept_menu())
                 .then(deptMenuData => {
@@ -191,9 +188,8 @@ const inqData = {
                 })
         },
         reportMenu: function () {
-            return inquirer.prompt(inqData.questions.dept_menu())
+            return inquirer.prompt(inqData.questions.report_menu())
                 .then(reportMenuData => {
-                    console.log(reportMenuData)
                     switch (reportMenuData.reportMenuSelection) {
                         case 'View All Employees':
                             return inqData.report_function.Employee()
@@ -202,7 +198,6 @@ const inqData = {
                         case 'View All Departments':
                             return inqData.report_function.Department()
                         case 'Return to Main Menu':
-                            console.log("im here")
                             return inqData.menus.mainMenu()
                     }
                 })
@@ -293,14 +288,12 @@ const inqData = {
                         }
                     ])
                         .then(sel => {
-                            console.log(sel)
                             if (sel.empUpdateSelection.length === 0) {
                                 return inqData.menus.employeeMenu()
                             }
                             db.find_one_emp(sel.empUpdateSelection)
                                 .then(([rows]) => {
                                     let emp = rows
-                                    console.log(emp)
                                     let questionArray = [
                                         {
                                             type: 'input',
@@ -591,18 +584,59 @@ const inqData = {
     },
     report_function: {
         Employee: function () {
-            console.log("halp")
-            // db.viewEmployee()
-            //     .then(data => {
-            //         console.log(data)
-            //         console.table(data)
-            //     })
+            db.viewEmployee()
+                .then(([rows]) => {
+                    let results = rows
+                    console.log('')
+                    console.table(results)
+                    return inquirer.prompt([
+                        {
+                            type: 'input',
+                            name: 'return',
+                            message: 'Please press return to when done.'
+                        }
+                    ])
+                    .then(() => {
+                        inqData.menus.reportMenu()
+                    })
+                })
         },
         Role: function () {
-
+            db.viewRole()
+                .then(([rows]) => {
+                    let results = rows
+                    console.log('')
+                    console.table(results)
+                    return inquirer.prompt([
+                        {
+                            type: 'input',
+                            name: 'return',
+                            message: 'Please press return to when done.'
+                        }
+                    ])
+                    .then(() => {
+                        inqData.menus.reportMenu()
+                    })
+                })
+                
         },
         Department: function () {
-
+            db.viewDept()
+                .then(([rows]) => {
+                    let results = rows
+                    console.log('')
+                    console.table(results)
+                    return inquirer.prompt([
+                        {
+                            type: 'input',
+                            name: 'return',
+                            message: 'Please press return to when done.'
+                        }
+                    ])
+                    .then(() => {
+                        inqData.menus.reportMenu()
+                    })
+                })
         }
     }
 }

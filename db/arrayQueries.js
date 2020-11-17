@@ -101,15 +101,41 @@ class DB {
         return this.connection.promise().query(sql)
     }
     viewEmployee() {
-        let sql = `SELECT * FROM employee`
+        let sql = `SELECT 
+        e.first_name AS 'Emp First Name', 
+        e.last_name AS 'Emp Last Name',
+        r.title AS 'Role Title', 
+        r.salary AS 'Salary',
+        d.name as 'Department',
+        m.first_name AS 'Mgr First Name',
+        m.last_name AS 'Mgr Last Name'
+        FROM 
+        employee AS e
+        LEFT JOIN 
+        employee AS m ON e.manager_id = m.id
+        LEFT JOIN 
+        role as r ON e.role_id = r.id
+        LEFT JOIN
+        department as d ON r.department_id = d.id
+        `
         return this.connection.promise().query(sql)
     }
     viewRole() {
-        let sql = `SELECT * FROM role`
+        let sql = `SELECT 
+        r.id AS "ID",
+        r.title AS 'Role Title', 
+        r.salary as 'Salary',
+        d.name as 'Department Name'
+        FROM role AS r
+        LEFT JOIN
+        department AS d ON r.department_id = d.id`
         return this.connection.promise().query(sql)
     }
     viewDept() {
-        let sql = `SELECT * From department`
+        let sql = `SELECT 
+        d.id as 'ID',
+        d.name as 'Department Name'
+        FROM department AS d`
         return this.connection.promise().query(sql)
     }
 }
