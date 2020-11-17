@@ -14,6 +14,10 @@ There is schema and seed file with testing data provided.
 
 To run the program type node server.js at your command line.
 
+## Screen Shots / Video
+
+A walk through video can be found here:  https://drive.google.com/file/d/12NV1Qje85K4vjnjbthOijj45du77oI23/view
+
 ## License
 MIT License
 
